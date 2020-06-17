@@ -1,0 +1,23 @@
+---
+- name: "Mirror a Git repo with Ansible"
+  hosts: localhost 
+  become: yes
+  vars:
+    git_dir: /etc/ansible/project/worktree.git
+  tasks:
+
+  - name: "Clone the git repo"
+    git:
+       repo: 'https://github.com/Muralidharan9402/test_multiple.git'
+       dest: '{{ git_dir }}'
+       clone: yes
+       update: yes
+
+  - name: "Add alternate remote"
+    ini_file: dest={{ git_dir }}/.git/config section='remote \"mirrored\"' option=url value='https://github.com:Muralidharan9402/test_unix_push.git'
+    tags: configuration
+ 
+  - name: "Push the repo to alternate remote"
+    #shell: 'git {{ git_dir }}/.git push mirrored HEAD'
+    script: /etc/ansible/project/git_command.sh
+
