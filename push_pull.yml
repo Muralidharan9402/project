@@ -1,5 +1,5 @@
 ---
-- name: "Mirror a Git repo with Ansible"
+- name: "Push and Pull Git repo with Ansible"
   hosts: localhost 
   become: yes
   vars:
