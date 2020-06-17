@@ -13,9 +13,9 @@
        clone: yes
        update: yes
 
-  - name: "Add alternate remote"
-    ini_file: dest={{ git_dir }}/.git/config section='remote \"mirrored\"' option=url value='https://github.com:Muralidharan9402/test_unix_push.git'
-    tags: configuration
+  #- name: "Add alternate remote"
+    #ini_file: dest={{ git_dir }}/.git/config section='remote \"mirrored\"' option=url value='https://github.com:Muralidharan9402/test_unix_push.git'
+    #tags: configuration
  
   - name: "Push the repo to alternate remote"
     #shell: 'git {{ git_dir }}/.git push mirrored HEAD'
