@@ -1,0 +1,20 @@
+---
+
+- name: to test Git Push 
+  hosts: localhost
+  become: yes
+  vars:
+    hostname: "{{ hostname }}"
+    commitMessage: "{{ commitMessage }}"
+  tasks:
+    - name: Git add all repos
+      shell: git add --all
+
+    #- name: Git stage all repos
+      #shell: git remote add origin '{{ hostname }}'
+
+    - name: Git commit message
+      shell: git commit -m '{{ commitMessage }}'
+
+    - name: Git push added repos
+      shell: git push origin master

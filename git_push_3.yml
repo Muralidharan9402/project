@@ -1,0 +1,22 @@
+---
+- name: "Mirror a Git repository with Ansible"
+  hosts: localhost
+  become: yes
+  vars:
+    git_dir: "{{ git_dir }}"
+    hostname: "{{ hostname }}"
+  tasks:
+    - name: "Add alternate remote"
+      ini_file: dest='{{ git_dir }}'/.git/config section='remote \"master\"' option=url value='{{ hostname }}'
+      tags: configuration
+
+    - name:
+      shell: git commit -m '{{ commitMessage }}'
+
+    - name: "Push the repo to alternate remote"
+      shell: git --git-dir='{{ git_dir }}'/.git push master HEAD
+
+    - name: Git - push
+      shell: git push '{{ hostname }}' master
+      args:
+        chdir: '{{ git_dir }}'

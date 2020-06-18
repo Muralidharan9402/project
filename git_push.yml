@@ -1,10 +1,46 @@
 ---
-- name: "Push and Pull Git repo with Ansible"
+- name: "Push Git repo with Ansible"
   hosts: localhost
   become: yes
   vars:
-    git_dir: /etc/ansible/project.git
+    git_dir: "{{ local_repo }}"
+    #gitadd.cmd: "HostName Not defined"
+    git_hostname: "{{ hostname }}"
+    git_msg: "{{ commitMessage }}"
+    #gitcommit.stdout: "Commit Message Not defined"
+    
   tasks:
-  - name: "Push the repo to alternate remote"
-    #shell: 'git {{ git_dir }}/.git push mirrored HEAD'
-    script: /etc/ansible/project/git_command.sh
+    #- name: "Push the repo to alternate remote"
+       #shell: 'git {{ git_dir }}/.git push mirrored HEAD'
+       #script: /etc/ansible/project/git_command.sh
+
+    - name: Git - Adding
+      shell: "git remote add '{{ git_hostname }}"
+      args:
+        chdir: '{{ git_dir }}'
+      #register: gitadd
+      #when: git.hostname is defined
+    #- debug:
+        #var: gitadd.cmd
+
+    #================================
+
+    - name: Git - commiting
+      shell: git commit -m '{{ git_msg }}' 
+      args:
+        chdir: '{{ git_dir }}'
+      #register: gitcommit
+      #when: git.msg is defined
+    #- debug:
+        #var: gitcommit.stdout
+
+    #================================  
+
+    - name: Git - push
+      shell: git push '{{ git_hostname }}' master
+      args:
+        chdir: '{{ git_dir }}'
+      #register: gitpush
+      #when: git.hostname is defined
+    #- debug:
+        #var: gitpush

@@ -1,0 +1,26 @@
+---
+- name: "Push Git repo with Ansible"
+  hosts: localhost
+  become: yes
+  vars:
+    git_dir: "{{ local_repo }}"
+    #gitadd.cmd: "HostName Not defined"
+    git_hostname: "{{ hostname }}"
+    git_msg: "{{ commitMessage }}"
+    #gitcommit.stdout: "Commit Message Not defined"
+
+  tasks:
+    #- name: Git - Adding
+      #shell: git remote add master '{{ git_hostname }}'
+      #args:
+        #chdir: '{{ git_dir }}'
+#================================
+    - name: Git - commiting
+      shell: git commit -m '{{ git_msg }}'
+      args:
+        chdir: '{{ git_dir }}'
+#================================
+    - name: Git - push
+      shell: git push '{{ git_hostname }}' master
+      args:
+        chdir: '{{ git_dir }}'
