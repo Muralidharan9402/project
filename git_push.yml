@@ -1,0 +1,10 @@
+---
+- name: "Push and Pull Git repo with Ansible"
+  hosts: localhost
+  become: yes
+  vars:
+    git_dir: /etc/ansible/project.git
+  tasks:
+  - name: "Push the repo to alternate remote"
+    #shell: 'git {{ git_dir }}/.git push mirrored HEAD'
+    script: /etc/ansible/project/git_command.sh
