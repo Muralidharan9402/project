@@ -12,9 +12,12 @@
 
     - name: git add all
       shell: git add --all
-
-    - name: git Remote add all
-      shell: git remote add '{{ branchname }}' '{{ hostname }}'
+  
+    #- name: git Remote add all
+      #command: git remote add '{{ branchname }}' '{{ hostname }}'
+      #register: shell_result
+        #- debug:
+            #msg: 'Ignore already exists branch'
 
     - name: git commit
       shell: git commit -am '{{ commitMessage }}'
