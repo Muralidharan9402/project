@@ -1,0 +1,22 @@
+---
+- name: Pull repository from Git
+  hosts: localhost
+  become: yes
+  vars:
+    git_source: "{{ hostname }}"
+    git_dest: "{{ destination_folder }}"
+  tasks:
+    - name: pull from git
+      git:
+        repo: '{{ git_source }}'
+        dest: '{{ git_dest }}'
+        version: master
+        force: yes
+        refspec: '+refs/pull/*:refs/heads/*'
+    - name: merge
+      shell: git merge master
+#- git:
+    #repo: https://github.com/ansible/ansible-examples.git
+    #dest: /src/ansible-examples
+    #refspec: '+refs/pull/*:refs/heads/*'
+

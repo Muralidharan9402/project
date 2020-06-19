@@ -12,11 +12,11 @@
       args:
         chdir: /etc/ansible/test
 
-    #- name: Git stage all repos
-      #shell: git remote add origin '{{ hostname }}'
+    - name: Git stage all repos
+      shell: git remote add '{{ hostname }}'
 
     - name: Git commit message
       shell: git commit -m '{{ commitMessage }}'
 
     - name: Git push added repos
-      shell: git push origin master
+      shell: git push '{{ hostname }}' master

@@ -1,13 +1,20 @@
 ---
-
+#Description: This script is used to pull all the specified remote repositories in to the local branh
+#This script can be applied for both Github and BitBucket to pull the request from the server
+#How this Script Works:
+#     1. This scripts takes Remote repository URL as the hostname runtime arguments
+#     2. Also the destination git folder to be pulled as the runtime argument from the user.
+#     3. Using the git module provided by the ansible to pull the request.
 - name: Pull repository from Git
   hosts: localhost
   become: yes
+  vars:
+    git_source: "{{ hostname }}"
+    git_dest: "{{ destination_folder }}"
   tasks:
     - name: pull from git
       git:
-        repo: git@github.com:Muralidharan9402/test_unix_push.git
-        dest: /etc/ansible/project
-        update: yes
+        repo: '{{ git_source }}'
+        dest: '{{ git_dest }}'
         version: master
-
+        force: yes
