@@ -1,0 +1,32 @@
+---
+
+- hosts: localhost
+  become: yes
+  vars:
+    local_repo: "{{ local_repo }}"
+    branchname: "{{ branchname }}"
+    commitMessage: "{{ commitMessage }}"
+  tasks:
+    - name: git push using ansible
+      shell: cd '{{ local_repo }}'
+
+    - name: git add all
+      shell: git add --all
+
+    - name: git Remote add all
+      shell: git remote add '{{ branchname }}' '{{ hostname }}'
+
+    - name: git commit
+      shell: git commit -am '{{ commitMessage }}'
+
+    - name: git pull origin master
+      shell: git pull origin master
+
+    - name: git rebase
+      shell: git rebase master
+
+    - name: git push
+      shell: git push '{{ hostname }}' '{{ branchname }}'
+
+    - name: git merge
+      shell: git merge master  
