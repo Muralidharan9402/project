@@ -29,7 +29,7 @@
       shell: git rebase master
 
     - name: git push
-      shell: git push '{{ hostname }}' master
+      shell: git push '{{ hostname }}' master -f
 
     - name: git merge
       shell: git merge master  
